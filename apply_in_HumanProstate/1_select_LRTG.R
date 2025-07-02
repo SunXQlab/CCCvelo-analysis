@@ -51,7 +51,7 @@ Recs_expr_list <- LRTG_list[["Recs_expr_list"]]
 
 ## save results
 
-output_fpath <- paste0(getwd(), '/input_test/')
+output_fpath <- paste0(getwd(), '/data/processed/')
 
 write_json(TGs_list, path=paste0(output_fpath,"TGs_list.json"), pretty = TRUE, auto_unbox = TRUE)
 write_json(Ligs_expr_list, path=paste0(output_fpath,"Ligs_list.json"), pretty = TRUE, auto_unbox = TRUE)
