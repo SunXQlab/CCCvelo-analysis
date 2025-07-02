@@ -10,12 +10,11 @@ import pandas as pd
 import scanpy as sc
 from scipy.spatial.distance import pdist, squareform
 
-from models2.runMLnet import *
-from models2.Input_prepare import *
-from models2.calculateLRscore import *
-from models2.utils import *
+from models.runMLnet import *
+from models.Input_prepare import *
+from models.calculateLRscore import *
+from models.utils import *
 
-# 全局路径
 DATA_DIR = "./data/processed/"
 MLNET_DIR = "./results/mlnet/"
 MODEL_DIR = "./results/trained_model/"
