@@ -1,11 +1,7 @@
 library(Seurat)
-library(ggplot2)
-library(pheatmap)
 library(tidyverse)
 library(dbscan)
-library(edgeR)
 library(limma)
-library(ggsci)
 library(SeuratWrappers)
 
 rm(list = ls())
