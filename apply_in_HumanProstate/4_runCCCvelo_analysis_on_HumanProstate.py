@@ -43,6 +43,9 @@ if __name__=="__main__":
     
     scv.pl.scatter(adata_spa,basis='spatial',color='fit_t',cmap='gnuplot',
                    save=VISUALIZE_DIR + 'spatial_fit_t')
+
+    scv.pl.heatmap(adata_spa, var_names=adata_spa.var_names, sortby='velocity_pseudotime', col_color='Cluster', n_convolve=150,
+                   save=VISUALIZE_DIR + 'heatmap_TGs_with_psd_all')
     
     adata_spa.write_h5ad(os.path.join('E:/CCCvelo/Model3_result/HumanProstateResult/trained_model/adata_spa_result.h5ad'))
     # adata_spa = sc.read_h5ad(os.path.join('E:/CCCvelo/Model3_result/HumanProstateResult/trained_model/adata_spa_result.h5ad'))
@@ -84,5 +87,7 @@ if __name__=="__main__":
     plt.xlabel('Cell type')
     plt.savefig(os.path.join(VISUALIZE_DIR, "boxplot_psd_v0.pdf"), format='pdf')
     plt.close()
+
+
 
   
