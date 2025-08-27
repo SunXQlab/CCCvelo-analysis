@@ -52,14 +52,6 @@ cellbin_seur@images$spatial <- cellbin_loc
 cellbin_seur$Celltype <- as.factor(cellbin_seur$Celltype)
 Idents(cellbin_seur) <- cellbin_seur$Celltype
 
-# filtering
-# ct_ind <- as.data.frame(table(seur$new_anno))
-# ct <- as.character(ct_ind$Var[which(ct_ind$Freq>50)])
-# ind <- which(tmp_cell_types %in% ct)
-# seur <- seur[,ind]
-# seur = subset(seur, subset = new_anno != "Unknown")
-# Idents(seur) <- seur$new_anno
-
 df_loc <- data.frame(x = cellbin_loc$x,y=cellbin_loc$y,
                      celltype = factor(cellbin_meta$Celltype))
 
