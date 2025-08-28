@@ -11,7 +11,7 @@ warnings.filterwarnings("ignore", category=RuntimeWarning, module="tkinter")
 from models.plot_CCCvelo import *
 from models.utils import *
 
-VISUALIZE_DIR = './Result/visualize/'
+VISUALIZE_DIR = './result/visualize/'
 
 if __name__=="__main__":
 
