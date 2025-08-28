@@ -85,7 +85,6 @@ def main(
     print("Multilayer network nodes summary:")
     print(summarize_multilayer_network(ex_mulnetlist))
    
-    # 计算 LR-TF 分数
     loop_calculate_LRTF_allscore(
         adata=adata,
         ex_mulnetlist=ex_mulnetlist,
@@ -95,7 +94,6 @@ def main(
         OutputDir=MLNET_DIR
     )
    
-    # 处理 TF-LR 打分
     TFLR_all_score = get_TFLR_allactivity(
         mulNetList=ex_mulnetlist,
         OutputDir=MLNET_DIR
@@ -107,11 +105,7 @@ def main(
         TFLR_all_score=TFLR_all_score,
         save_path=MLNET_DIR
     )
-    
-    # with open(os.path.join(MLNET_DIR, 'TFLR_all_score.pkl'), 'wb') as f:
-    #     pickle.dump(TFLR_all_score, f)
 
-    # 筛选 receiver 细胞
     print("Selecting receiver cells...")
     celltype_ls = adata.obs['Cluster'].to_list()
     ct_index_ls = []
@@ -125,7 +119,6 @@ def main(
     adata = adata[filtered_cells].copy()
     print(adata)
 
-    # 准备 CCCvelo 输入
     link_files = {
         'LR_link_file': 'LR_links.csv',
         'TFTG_link_file': 'TFTG_links.csv',
@@ -142,7 +135,6 @@ def main(
     adata = root_cell(adata, select_root='UMAP')
     # print('Root cell cluster is:', adata.obs['Cluster'][adata.uns['iroot']])
 
-    # 建模
     print("Training spatial velocity model...")
 
     n_cells = adata.n_obs
@@ -168,7 +160,6 @@ def main(
         model = SpatialVelocity(*data, lr=learning_rate, Lambda=lambda_reg, batch_size=batch_size)
         iteration_adam, loss_adam = model.train(n_epochs)
    
-
     adata.write_h5ad(os.path.join(MODEL_DIR, 'adata_pyinput.h5ad'))
 
     adata_copy = adata[:, adata.var['TGs'].astype(bool)]
