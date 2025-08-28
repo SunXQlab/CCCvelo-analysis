@@ -36,13 +36,9 @@ def main(
     lambda_reg=0.01,
     n_epochs=20
 ):
-    # if rec_clusters is None:
-    #     rec_clusters = ['E.state tumor', 'ICS.state tumor', 'M.state tumor']
 
-    # 设置输入路径
     input_dir = DATA_DIR
 
-    # 加载数据
     print("Loading data...")
     data_files = {
         'count_file': 'raw_expression_mtx.csv',
@@ -58,7 +54,6 @@ def main(
     Ligs_list = load_json(os.path.join(input_dir, "Ligs_list.json"))
     Recs_list = load_json(os.path.join(input_dir, "Recs_list.json"))
   
-    # 运行 multilayer network 构建
     print("Building multilayer network...")
     resMLnet = runMLnet(
         adata=adata,
@@ -84,7 +79,6 @@ def main(
     print("Multilayer network nodes summary:")
     print(summarize_multilayer_network(ex_mulnetlist))
    
-    # 计算 LR-TF 分数
     loop_calculate_LRTF_allscore(
         adata=adata,
         ex_mulnetlist=ex_mulnetlist,
@@ -93,8 +87,7 @@ def main(
         cont_LigRecDB_path='E:/CCCvelo/data/Database/cont_LigRecDB.csv', 
         OutputDir=MLNET_DIR
     )
-   
-    # 处理 TF-LR 打分
+
     TFLR_all_score = get_TFLR_allactivity(
         mulNetList=ex_mulnetlist,
         OutputDir=MLNET_DIR
@@ -107,10 +100,6 @@ def main(
         save_path=MLNET_DIR
     )
     
-    # with open(os.path.join(MLNET_DIR, 'TFLR_all_score.pkl'), 'wb') as f:
-    #     pickle.dump(TFLR_all_score, f)
-
-    # 筛选 receiver 细胞
     print("Selecting receiver cells...")
     celltype_ls = adata.obs['Cluster'].to_list()
     ct_index_ls = []
@@ -123,7 +112,6 @@ def main(
     adata = adata[selected_cells].copy()
     print(adata)
 
-    # 准备 CCCvelo 输入
     link_files = {
         'LR_link_file': 'LR_links.csv',
         'TFTG_link_file': 'TFTG_links.csv',
@@ -140,7 +128,6 @@ def main(
     adata = root_cell(adata, select_root='UMAP')
     print('Root cell cluster is:', adata.obs['Cluster'][adata.uns['iroot']])
 
-    # 建模
     print("Training spatial velocity model...")
 
     n_cells = adata.n_obs
@@ -194,7 +181,6 @@ def main(
 
     print("Pipeline finished successfully!")
 
-# 运行
 if __name__ == "__main__": 
 
     seed = 12 # Replace with your seed value 
@@ -219,7 +205,7 @@ if __name__ == "__main__":
         n_epochs=200)
     
     after_memory = process.memory_info().rss / 1024 ** 2  
-    print(f"内存使用增加了: {after_memory - before_memory} MB")
+    print(f"Memory Usage is: {after_memory - before_memory} MB")
     end_time = time.time()
     run_time = (end_time - start_time) / 60
     print(f"Running time is: {run_time} mins")
