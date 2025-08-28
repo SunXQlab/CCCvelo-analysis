@@ -150,11 +150,8 @@ def main(
         model = SpatialVelocity(*data, lr=learning_rate, Lambda=lambda_reg)
         iteration_adam, loss_adam = model.train(200)
 
-        # plt_path = os.path.join(results_path, "figure/")
-        # create_directory(plt_path)
         plot_gene_dynamic(adata_velo, model, VISUALIZE_DIR)
 
-    
     else:
         print("Training with batch SpatialVelocity (mini-batch mode)...")
 
