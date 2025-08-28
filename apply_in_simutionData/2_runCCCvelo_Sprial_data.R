@@ -5,11 +5,6 @@ import random
 warnings.filterwarnings("ignore")
 warnings.filterwarnings("ignore", category=RuntimeWarning, module="tkinter")
 
-# import tensorflow as tf
-#
-# tf.compat.v1.disable_eager_execution()
-# import STAGATE
-
 from models.train_CCCvelo import *
 from models.plot_CCCvelo import *
 from models.preprocess_CCCvelo import *
@@ -24,15 +19,11 @@ else:
     device = torch.device('cpu')
 warnings.filterwarnings("ignore")
 
-
 def main(seed, slide_num,train_num):
     # Step 1: Load data
     # start_time = time.time()
     base_path = "E:/CCCvelo/apply_in_simu/"
-    # results_path = os.path.join(MODEL_DIR, f"slide_{slide_num}/")
-    # create_directory(results_path)
 
-    # input_dir = os.path.join(base_path, f"newInput/fan/slide_{slide_num}/")
     input_dir = os.path.join(base_path, f"newInput/20240721_sprial/slide_{slide_num}/")
     files = {
         'count_file': 'raw_expression_mtx.csv',
@@ -111,8 +102,6 @@ if __name__ == "__main__":
         np.random.seed(seed)  
 
         # setting global name and path
-        # DATA_DIR = "./data/processed/"
-        # MLNET_DIR = "./results3_m3/mlnet/"
         MODEL_DIR = f"./results_simu/slide_{i}/trained_model/"
         TG_PRED_DIR = f"./results_simu/slide_{i}/tg_prediction/"
         LOSS_DIR = f"./results_simu/slide_{i}/loss_curves/"
