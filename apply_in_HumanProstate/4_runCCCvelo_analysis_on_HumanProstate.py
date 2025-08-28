@@ -11,14 +11,14 @@ warnings.filterwarnings("ignore", category=RuntimeWarning, module="tkinter")
 from models.plot_CCCvelo import *
 from models.utils import *
 
-VISUALIZE_DIR = './result/visualize/'
+VISUALIZE_DIR = './results/visualize/'
 
 if __name__=="__main__":
 
     current_path = os.getcwd()
     print("Current Path:", current_path)
 
-    results_path = "./Result/trained_model/"
+    results_path = "./results/trained_model/"
 
     adata_velo = torch.load(results_path + "CCCvelo.pt")
     print(adata_velo)
