@@ -5,13 +5,12 @@ from sklearn.preprocessing import MinMaxScaler
 
 def pl_GAM_fit(psd,y,n_splines,plt_path,name):
 
-    gam = LinearGAM(s(0), n_splines=n_splines, lam=0.1).fit(psd, y)  # 创建并拟合 GAM 模型
+    gam = LinearGAM(s(0), n_splines=n_splines, lam=0.1).fit(psd, y) 
     XX = np.linspace(0, 1, 2000)
-    # 绘制原始数据和 GAM 拟合曲线
     plt.figure(figsize=(8, 6))
     # plt.plot(psd, y, 'o', label='Data', alpha=0.5)
     plt.plot(XX, gam.predict(XX), 'r-', label='GAM Fit')
-    confidence_intervals = gam.confidence_intervals(XX, width=0.95)  # 添加置信区间
+    confidence_intervals = gam.confidence_intervals(XX, width=0.95)  
     plt.fill_between(XX, confidence_intervals[:, 0], confidence_intervals[:, 1], color='red', alpha=0.3, label='95% CI')
     plt.xlabel('Pseudotime')
     # plt.ylabel('%s regulate score' % key_lr)
