@@ -42,35 +42,38 @@ scales::show_col(mycolor_key)
 #############
 ## workdir ##
 #############
-# load data
-ser <- readRDS("~/velocity_methods/01_analysis/apply_in_prostate/data/area_4000x6000_5000x7000/sub_ser_obj.rds")
-Idents(ser) <- ser@meta.data$new_celltype
-sub_ser <- subset(ser,idents = c('E.state tumor','M.state tumor','ICS.state tumor'))
+plotdir = './visualize/'
+dir.create(plotdir,recursive = T)
 
-df_loc <- data.frame(Barcode=colnames(sub_ser),x=sub_ser$center_x,y=sub_ser$center_y,celltype=sub_ser$new_celltype)
+wd <- "./runscMLnet/"
+files = list.files(wd)
+files_cps = files[grep(".csv",files,invert = T)]
+files_cps = files_cps[grep("_Isocortex L4|Isocortex L23|Isocortex L5|Isocortex L6",files_cps)]
 
-# select specific LR pairs for analysis
-MLnet_tab_M <- readRDS("./TAM_to_Mstatetumor_MLnet.rds")
-MLnet_tab_E <- readRDS("./TAM_to_Estatetumor_MLnet.rds")
-MLnet_tab_ICS <- readRDS("./TAM_to_ICSstatetumor_MLnet.rds")
+mulNetList = lapply(files_cps, function(files_cp){
+  
+  readRDS(paste0(wd,files_cp,"/scMLnet.rds"))
+  
+})
+names(mulNetList) = files_cps
+mulNetList = mulNetList[!unlist(lapply(mulNetList, function(mulnet){nrow(mulnet$LigRec)==0}))]
 
-LRpair_M <- unique(MLnet_tab_M$LRpair)
-LRpair_E <- unique(MLnet_tab_E$LRpair)
-LRpair_ICS <- unique(MLnet_tab_ICS$LRpair)
-
-unique_LR_M <- LRpair_M[which(!LRpair_M %in% c(LRpair_E,LRpair_ICS))]
-unique_LR_E <- LRpair_E[which(!LRpair_E %in% c(LRpair_M,LRpair_ICS))]
-unique_LR_ICS <- LRpair_ICS[which(!LRpair_ICS %in% c(LRpair_E,LRpair_M))]
-
-EMT_markers <- c('FN1', 'TWIST1', 'SNAI1', 'SNAI2', 'ZEB1', 'TGFB1', 'TGFB2', 'CTNNB1')
-M_markers <- c('ACTA2','CDH11','CDH2','CTNNB1','DDR2','FN1','FOXC2','GSC','ITGA5',
-               'ITGB6','KRT8','LEF1','MMP2','MMP3','MMP9','S100A4','SDC1','SERPINH1',
-               'SMAD2','SMAD3','SNAI1','SNAI2','TCF3','TCF4','TWIST1','VIM','ZEB1','ZEB2')
-E_markers <- c("CDH1","COL4A1","DSP",'KRT18','KRT19','KRT5','LAMA1','LAMA2','LAMA3',
-               'LAMA4','LAMA5','MUC1','NID1','OCLN','TJP1')
-M_EMT_markers <- c(EMT_markers, M_markers) %>% unique(.)
-E_EMT_markers <- c(EMT_markers, E_markers) %>% unique(.)
-ICS_EMT_markers <- c(M_markers,E_markers,EMT_markers) %>% unique(.)
+mulNet_tab = lapply(mulNetList, function(mlnet){
+  
+  ligrec = data.frame(Ligand = mlnet$LigRec$source, Receptor = mlnet$LigRec$target) 
+  rectf = data.frame(Receptor = mlnet$RecTF$source, TF = mlnet$RecTF$target)
+  tftg = data.frame(TF = mlnet$TFTar$source, Target = mlnet$TFTar$target)
+  
+  res = ligrec %>% merge(., rectf, by = 'Receptor') %>% 
+    merge(., tftg, by = 'TF') %>% 
+    dplyr::select(Ligand, Receptor, TF, Target) %>% 
+    arrange(Ligand, Receptor)
+  
+}) %>% do.call('rbind',.) %>% as.data.frame()
+mulNet_tab = rownames_to_column(mulNet_tab,var='CellPair')
+mulNet_tab = mulNet_tab %>% separate(CellPair, into = c("Sender", "Receiver"), sep = "_")
+mulNet_tab$Receiver <- gsub("\\.[0-9]+", "",mulNet_tab$Receiver)
+mulNet_tab$LRpair <- paste0(mulNet_tab$Ligand,"_",mulNet_tab$Receptor)
 
 plotdir = './visualize/'
 dir.create(plotdir,recursive = T)
