@@ -6,13 +6,12 @@ import time
 warnings.filterwarnings("ignore")
 warnings.filterwarnings("ignore", category=RuntimeWarning, module="tkinter")
 
-from models3.runMLnet import *
-from models3.Input_prepare import *
-from models3.calculateLRscore import *
-from models3.plot_CCCvelo import *
-from models3.utils import *
+from models.runMLnet import *
+from models.Input_prepare import *
+from models.calculateLRscore import *
+from models.plot_CCCvelo import *
+from models.utils import *
 
-# 全局路径
 # setting global name and path
 
 DATA_DIR = "./data/processed/"
