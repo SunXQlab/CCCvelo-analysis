@@ -183,7 +183,7 @@ def main(
 
 if __name__ == "__main__": 
 
-    seed = 12 # Replace with your seed value 
+    seed = 1 # Replace with your seed value 
 
     torch.manual_seed(seed) 
     torch.cuda.manual_seed(seed)
@@ -191,9 +191,6 @@ if __name__ == "__main__":
 
     random.seed(seed)  
     np.random.seed(seed)  
-    start_time = time.time()
-    process = psutil.Process(os.getpid())
-    before_memory = process.memory_info().rss / 1024 ** 2  
 
     main(
         seed,
@@ -203,10 +200,4 @@ if __name__ == "__main__":
         learning_rate=0.005,
         lambda_reg=0.01,
         n_epochs=200)
-    
-    after_memory = process.memory_info().rss / 1024 ** 2  
-    print(f"Memory Usage is: {after_memory - before_memory} MB")
-    end_time = time.time()
-    run_time = (end_time - start_time) / 60
-    print(f"Running time is: {run_time} mins")
 
