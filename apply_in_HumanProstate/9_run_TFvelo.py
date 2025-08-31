@@ -85,10 +85,6 @@ def get_sort_t(adata):
 def get_index1(lst=None, item=''):
     return [index for (index, value) in enumerate(lst) if value == item]
 
-process = psutil.Process(os.getpid())
-before_memory = process.memory_info().rss / 1024 ** 2  
-
-start_time = time.time()
 data_path = "/home/yll/velocity_methods/01_analysis/apply_in_prostate/area_4000x6000_5000x7000_input/"
 df_count = pd.read_csv(data_path + "raw_expression_mtx.csv") 
 df_meta = pd.read_csv(data_path + "cell_meta.csv")  # meta data info
@@ -147,13 +143,6 @@ flag = TFv.tl.recover_dynamics(adata, n_jobs=n_jobs, max_iter=20, var_names="all
     n_time_points=1000) 
 
 # adata.write(result_path + 'rc.h5ad')
-
-end_time = time.time()
-run_time = (end_time - start_time) / 60
-print(f"Running time is: {run_time} mins")
-
-after_memory = process.memory_info().rss / 1024 ** 2  
-print(f"The memory usage is: {after_memory - before_memory} MB")
 
 losses = adata.varm['loss'].copy()
 losses[np.isnan(losses)] = 1e6
