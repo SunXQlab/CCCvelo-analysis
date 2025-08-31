@@ -136,8 +136,8 @@ def main(
     if n_cells <= 10000:
         print("Training with standard SpatialVelocity (full batch)...")
         
-        from models3.train_CCCvelo import SpatialVelocity
-        from models3.plot_CCCvelo import plot_gene_dynamic
+        from models.train_CCCvelo import SpatialVelocity
+        from models.plot_CCCvelo import plot_gene_dynamic
 
         data = PrepareData(adata, hidden_dims=hidden_dims)
         model = SpatialVelocity(*data, lr=learning_rate, Lambda=lambda_reg)
@@ -146,8 +146,8 @@ def main(
     else:
         print("Training with batch SpatialVelocity (mini-batch mode)...")
 
-        from models3.train_CCCvelo_batchs import SpatialVelocity
-        from models3.plot_CCCvelo_batch import plot_gene_dynamic
+        from models.train_CCCvelo_batchs import SpatialVelocity
+        from models.plot_CCCvelo_batch import plot_gene_dynamic
 
         data = PrepareData(adata, hidden_dims=hidden_dims)
         model = SpatialVelocity(*data, lr=learning_rate, Lambda=lambda_reg, batch_size=batch_size)
