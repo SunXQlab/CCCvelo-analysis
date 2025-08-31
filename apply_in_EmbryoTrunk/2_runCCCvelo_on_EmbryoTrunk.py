@@ -53,13 +53,11 @@ def main(
     paths = {key: os.path.join(input_dir, fname) for key, fname in data_files.items()}
     adata = ReadData(**paths)
 
-  
     print("Loading database...")
     TGs_list = load_json(os.path.join(input_dir, "TGs_list.json"))
     Ligs_list = load_json(os.path.join(input_dir, "Ligs_list.json"))
     Recs_list = load_json(os.path.join(input_dir, "Recs_list.json"))
   
-    # 运行 multilayer network 构建
     print("Building multilayer network...")
     resMLnet = runMLnet(
         adata=adata,
