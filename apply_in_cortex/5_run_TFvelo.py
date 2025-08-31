@@ -84,9 +84,6 @@ def get_sort_t(adata):
 def get_index1(lst=None, item=''):
     return [index for (index, value) in enumerate(lst) if value == item]
 
-process = psutil.Process(os.getpid())
-before_memory = process.memory_info().rss / 1024 ** 2 
-start_time = time.time()
 data_path = "/home/yll/velocity_methods/dataset/scSTData/2023_Biorxiv_stereoseq_mousebrain/"
 adata = ad.read_h5ad(data_path + 'mousebrain_bin60_clustered.h5ad')
 adata_copy=adata.copy()
@@ -144,11 +141,6 @@ flag = TFv.tl.recover_dynamics(adata, n_jobs=n_jobs, max_iter=20, var_names="all
     WX_method = "lsq_linear", WX_thres=20, max_n_TF=99, n_top_genes=2000,
     fit_scaling=True, use_raw=0, init_weight_method="correlation", 
     n_time_points=1000) 
-after_memory = process.memory_info().rss / 1024 ** 2  # 转换为 MB
-print(f"内存使用增加了: {after_memory - before_memory} MB")
-end_time = time.time()
-run_time = (end_time - start_time) / 60
-print(f"Running time is: {run_time} mins")
 
 losses = adata.varm['loss'].copy()
 losses[np.isnan(losses)] = 1e6
