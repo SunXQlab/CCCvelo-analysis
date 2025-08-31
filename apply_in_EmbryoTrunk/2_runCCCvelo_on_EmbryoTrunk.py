@@ -183,9 +183,6 @@ def main(
 
         random.seed(seed)  
         np.random.seed(seed)  
-        start_time = time.time()
-        process = psutil.Process(os.getpid())
-        before_memory = process.memory_info().rss / 1024 ** 2  
 
         main(
             seed,
@@ -196,8 +193,3 @@ def main(
             lambda_reg=0.01,
             n_epochs=5)
         
-        after_memory = process.memory_info().rss / 1024 ** 2  
-        print(f"Memory usage is: {after_memory - before_memory} MB")
-        end_time = time.time()
-        run_time = (end_time - start_time) / 60
-        print(f"Running time is: {run_time} mins")
