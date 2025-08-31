@@ -15,11 +15,11 @@ from models.utils import *
 # setting global name and path
 
 DATA_DIR = "./data/processed/"
-MLNET_DIR = "./results3_m3/mlnet/"
-MODEL_DIR = "./results3_m3/trained_model/"
-TG_PRED_DIR = "./results3_m3/tg_prediction/"
-LOSS_DIR = "./results3_m3/loss_curves/"
-VISUALIZE_DIR = './results3_m3/visualize/'
+MLNET_DIR = "./results/mlnet/"
+MODEL_DIR = "./results/trained_model/"
+TG_PRED_DIR = "./results/tg_prediction/"
+LOSS_DIR = "./results/loss_curves/"
+VISUALIZE_DIR = './results/visualize/'
 
 # create folders
 for dir_path in [DATA_DIR, MODEL_DIR, MLNET_DIR, TG_PRED_DIR, LOSS_DIR, VISUALIZE_DIR]:
