@@ -15,10 +15,6 @@ import matplotlib
 
 if __name__=="__main__":
 
-    process = psutil.Process(os.getpid())
-    before_memory = process.memory_info().rss / 1024 ** 2  
-    start_time = time.time()
-
     data_path = "F:/STdataset_yll/2023_Biorxiv_stereoseq_mousebrain"
     adata = sc.read_h5ad(data_path + '/MouseBrain_bin60_clustered.h5ad')
     print(adata)
@@ -67,12 +63,6 @@ if __name__=="__main__":
     if not os.path.exists(results_path):
         os.makedirs(results_path)
     adata.write(results_path+ "/scvelo_results_new.h5ad")
-    after_memory = process.memory_info().rss / 1024 ** 2  
-    print(f"The memory usage is: {after_memory - before_memory} MB")
-    
-    end_time = time.time()
-    run_time = (end_time - start_time) / 60
-    print(f"Running time is: {run_time} mins")
 
   
     
