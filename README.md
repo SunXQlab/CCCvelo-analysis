@@ -33,13 +33,3 @@ Here, we introduce CCCvelo, a computational framework designed to reconstruct CC
    - 2_runCCCvelo_on_Fan_data.py: the velocity inference of CCCvelo on the Fan-shaped simulated datasets, corresponding to Fig.2b-c.
    - 2_runCCCvelo_on_Spiral_data.py: the velocity inference of CCCvelo on the Spiral-shaped simulated datasets to Fig.2e-f.
 
-## Databases
-
-Databases used in this paper are stored in `./prior_knowledge/output` folder, including LigRecDB (the Ligand-Receptor database), RecTFDB (Receptor-TF database) and TFTGDB (TF-Target Genes database). The R code used for collection and integration of prior databases is available at `./prior_knowledge/`.
-
-  - s1_get_prior_database.R: collection and integration of databases, corresponding to FigS1.
-  - s2_compare_database.R: comparison of different databases (stMLnet, Omnipath, NicheNet), corresponding to FigS2A.
-  - s3_tunepara_database.R: train the hyperparameters of random walk with restart on different databases, corresponding to FigS2B.
-  - s4_doRWR.R: perform the random walk with restart to obtain the corrected databases.
-  - s5_quan.cutoff.R: use the cell lines datasets to optimizate the corrected databases, corresponding to FigS2C.
-
