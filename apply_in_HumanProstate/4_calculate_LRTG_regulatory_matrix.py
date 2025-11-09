@@ -25,13 +25,15 @@ if __name__ == "__main__":
 
     adata = torch.load(results_path + "pp_adata.pt")
     adata_velo = torch.load(results_path + "CCCvelo.pt")
-
+    N_cell,N_TF,N_LR = adata_velo.obsm['TFLR_signaling_score'].shape
+    N_TG = adata_velo.shape[1]
+    
     model = torch.load(results_path + "model_spa_velo.pth")
 
     # calculate regulatory matrix between LR and TG
-    all_jac_TFTG = torch.zeros(16203,93,40)
-    all_jac_LRTF = torch.zeros(16203,40,206)
-    all_jac_LRTG = torch.zeros(16203,93,206)
+    all_jac_TFTG = torch.zeros(N_cell,N_TG,N_TF)
+    all_jac_LRTF = torch.zeros(N_cell,N_TF,N_LR)
+    all_jac_LRTG = torch.zeros(N_cell,N_TG,N_LR)
     all_matched_indices = []
     for batch_idx, batch in enumerate(model.dataloader):
         TGs_expr_batch, TFs_expr_batch, TFLR_allscore_batch = [x.to(device) for x in batch]
