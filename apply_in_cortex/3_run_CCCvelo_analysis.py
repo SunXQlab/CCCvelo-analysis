@@ -8,8 +8,8 @@ warnings.filterwarnings("ignore")
 warnings.filterwarnings("ignore", category=RuntimeWarning, module="tkinter")
 
 
-from models2.plot_CCCvelo import *
-from models2.utils import *
+from models.plot_CCCvelo import *
+from models.utils import *
 
 VISUALIZE_DIR = './results/visualize/'
 
