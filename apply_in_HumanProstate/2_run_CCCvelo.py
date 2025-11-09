@@ -49,7 +49,6 @@ def main(
     paths = {key: os.path.join(input_dir, fname) for key, fname in data_files.items()}
     adata = ReadData(**paths)
 
-    # 加载外部资源
     print("Loading database...")
     # Databases = load_json(os.path.join("E:/CCCvelo/data/Database/Databases.json"))
     # for key, val in Databases.items():
