@@ -7,7 +7,6 @@ from scipy.stats import spearmanr
 warnings.filterwarnings("ignore")
 warnings.filterwarnings("ignore", category=RuntimeWarning, module="tkinter")
 
-
 from models.plot_CCCvelo import *
 from models.utils import *
 
@@ -76,7 +75,6 @@ if __name__=="__main__":
     correlation, p_value = spearmanr(cccvelo_gdt_ord['value'], cccvelo_psd['velocity_pseudotime'])
     correlation, p_value = spearmanr(cccvelo_gdt_ord['value'], cccvelo_psd['velocity_pseudotime'])
     print(f"cccvelo: The Spearman correlation between gdt_ord and psd {correlation}")
-
 
     fig1, ax = plt.subplots(figsize=(6.5, 6))
     sns.boxplot(data=data_psd, x='cluster', y='psd', hue='cluster', orient='v', ax=ax, width=0.5,fliersize=1.5,
