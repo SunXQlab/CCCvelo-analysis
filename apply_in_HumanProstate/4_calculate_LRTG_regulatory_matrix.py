@@ -1,17 +1,10 @@
 import warnings
-
 import torch
-
 warnings.filterwarnings("ignore")
 warnings.filterwarnings("ignore", category=RuntimeWarning, module="tkinter")
 
-# import tensorflow as tf
-#
-# tf.compat.v1.disable_eager_execution()
-# import STAGATE
 from models.plot_CCCvelo_batch import *
 from models.train_CCCvelo_batchs import *
-# from train_spVelo_test import *
 from models.plot_CCCvelo import *
 from models.preprocess_CCCvelo import *
 from models.evaluation_Metric import *
