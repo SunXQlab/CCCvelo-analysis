@@ -49,11 +49,11 @@ cellbin_seur <- CreateSeuratObject(cellbin_cnt,
                                    assay="Spatial",
                                    min.cells = 20)
 cellbin_seur@images$spatial <- cellbin_loc
-cellbin_seur$Celltype <- as.factor(cellbin_seur$Celltype)
-Idents(cellbin_seur) <- cellbin_seur$Celltype
+cellbin_seur$scc_anno <- as.factor(cellbin_seur$scc_anno)
+Idents(cellbin_seur) <- cellbin_seur$scc_anno
 
 df_loc <- data.frame(x = cellbin_loc$x,y=cellbin_loc$y,
-                     celltype = factor(cellbin_meta$Celltype))
+                     celltype = factor(cellbin_meta$scc_anno))
 
 plot2 <- ggplot(df_loc, aes(x=x,y=y,colour = celltype)) +
   geom_point(size = 1)
@@ -62,11 +62,11 @@ plot2
 # select neuronal layer (L2-L6)
 Idents(cellbin_seur) <- "Celltype"
 neuronal_ct <- c("EX L2/3","EX L5/6","EX L4","EX L6")
-neur_meta <- cellbin_meta[which(cellbin_meta$Celltype %in% neuronal_ct), ]
+neur_meta <- cellbin_meta[which(cellbin_meta$scc_anno %in% neuronal_ct), ]
 neur_loc <- cellbin_loc[rownames(neur_meta),]
 
 df_loc <- data.frame(x = neur_loc$x,y=neur_loc$y,
-                     celltype = factor(neur_meta$Celltype))
+                     celltype = factor(neur_meta$scc_anno))
 
 plot2 <- ggplot(df_loc, aes(x=x,y=y,colour = celltype)) +
   geom_point(size = 1)
