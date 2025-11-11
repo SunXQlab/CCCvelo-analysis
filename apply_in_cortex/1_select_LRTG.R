@@ -77,14 +77,14 @@ plot2
 rownames(cellbin_meta) <- cellbin_meta$Barcode
 ser_obj <- CreateSeuratObject(counts = cellbin_cnt, meta.data = cellbin_meta, assay = 'Spatial')
 ser_obj <- SCTransform(ser_obj, assay = 'Spatial')
-ser_obj <- FindVariableFeatures(ser_obj, nfeatures = 3000)
+# ser_obj <- FindVariableFeatures(ser_obj, nfeatures = 3000)
 
 ## imputation
 seed <- 4321
 norm.matrix <- as.matrix(GetAssayData(ser_obj, "data", "SCT"))
 exprMat.Impute <- run_Imputation(exprMat = norm.matrix,use.seed = T,seed = seed)
 
-ser_obj <- ser_obj[VariableFeatures(ser_obj),]
+# ser_obj <- ser_obj[VariableFeatures(ser_obj),]
 Idents(ser_obj) <- ser_obj@meta.data$Cluster
 
 Databases <- readRDS('./prior_knowledge/Databases.rds')
