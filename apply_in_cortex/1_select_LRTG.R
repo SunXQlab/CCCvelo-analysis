@@ -88,7 +88,7 @@ ser_obj <- ser_obj[VariableFeatures(ser_obj),]
 Idents(ser_obj) <- ser_obj@meta.data$Cluster
 
 Databases <- readRDS('./prior_knowledge/Databases.rds')
-LRTG_list <- select_LRTG(ser_obj, Databases, log.gc = 0.15, p_val_adj=0.05, pct.ct=0.01, expr.ct = 0.01)
+LRTG_list <- select_LRTG(ser_obj, Databases, log.gc = 0.25, p_val_adj=0.05, pct.ct=0.01, expr.ct = 0.01)
 
 TGs_list <- LRTG_list[["TGs_list"]]
 Ligs_expr_list <- LRTG_list[["Ligs_expr_list"]]
