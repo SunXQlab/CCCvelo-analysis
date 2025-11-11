@@ -1,4 +1,4 @@
-  library(Seurat)
+library(Seurat)
 library(readr)
 library(ggplot2)
 library(tidyverse)
@@ -73,13 +73,9 @@ plot2 <- ggplot(df_loc, aes(x=x,y=y,colour = celltype)) +
 plot2
 
 # select ICGs as target gene
-sub_loca <- data.frame(sub_meta$spatial_x, sub_meta$spatial_y)
-sub_anno <- data.frame(Barcode=rownames(sub_meta),Cluster=sub_meta$`sim anno`)
-rownames(sub_loca) <- rownames(sub_anno)
-
 # creat seurat object
-rownames(sub_anno) <- sub_anno$Barcode
-ser_obj <- CreateSeuratObject(counts = sub_count, meta.data = sub_anno, assay = 'Spatial')
+rownames(cellbin_meta) <- cellbin_meta$Barcode
+ser_obj <- CreateSeuratObject(counts = cellbin_cnt, meta.data = cellbin_meta, assay = 'Spatial')
 ser_obj <- SCTransform(ser_obj, assay = 'Spatial')
 ser_obj <- FindVariableFeatures(ser_obj, nfeatures = 3000)
 
