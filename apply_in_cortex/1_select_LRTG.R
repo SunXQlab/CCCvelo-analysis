@@ -5,6 +5,7 @@ library(tidyverse)
 library(dplyr)
 library(stMLnet)
 library(SeuratWrappers)
+library(jsonlite)
 
 rm(list = ls())
 gc()
