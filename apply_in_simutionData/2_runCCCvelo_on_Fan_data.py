@@ -8,7 +8,7 @@ warnings.filterwarnings("ignore", category=RuntimeWarning, module="tkinter")
 from models.train_CCCvelo import *
 # from train_spVelo_test import *
 from models.plot_CCCvelo import *
-from models.preprocess_CCCvelo import *
+from models.Input_prepare import *
 from models.evaluation_Metric import *
 from sklearn.metrics import roc_auc_score, average_precision_score
 from sklearn.metrics import roc_curve, precision_recall_curve
